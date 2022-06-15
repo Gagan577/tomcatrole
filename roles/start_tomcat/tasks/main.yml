@@ -1,0 +1,17 @@
+---
+    - name: Setup tomcat SVC file on Centos 7
+      template:
+         src: templates/epel7-svcfile.j2
+         dest: /etc/systemd/system/tomcat.service
+         mode: "a+x"
+      
+    - name: just force systemd to reread configs (2.4 and above)
+      systemd:
+        daemon_reload: yes 
+     
+
+    - name: Start & Enable TOmcat 8
+      service:
+        name: tomcat
+        state: started
+        enabled: yes
